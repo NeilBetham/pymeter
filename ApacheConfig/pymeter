@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName bw.example.com
+
+    WSGIDaemonProcess pymeter user=www-data group=www-data threads=5 home=/var/www/pymeter/ 
+    WSGIScriptAlias / /var/www/pymeter/pymeter.wsgi
+
+    <Directory /var/www/pymeter/>
+        WSGIProcessGroup pymeter
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Allow from all
+    </Directory>
+</VirtualHost>

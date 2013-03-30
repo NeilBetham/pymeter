@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Bandwidth Meter</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script src="static/raphael.2.1.0.min.js"></script>
+		<script src="static/justgage.1.0.1.min.js"></script>
+		<script src="static/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="static/style.css">
+		<script> 
+		window.onload = function(){
+			window.gaugeup = new JustGage({
+				id: "gup", 
+				value: 0, 
+				min: 0,
+				max: 1000,
+				title: "Up",
+				label: "Mbps",
+				levelColors: ["#99FFFF","#9900FF"],
+				levelColorsGradient: true
+			});
+			window.gaugedown = new JustGage({
+				id: "gdown", 
+				value: 0, 
+				min: 0,
+				max: 1000,
+				title: "Down",
+				label: " Mbps",
+				levelColors: ["#99FFFF","#9900FF"],
+				levelColorsGradient: true
+			});
+			(function getAndSetBw(){
+				$.getJSON('/bw', function(data){
+					console.log(data);
+					window.gaugeup.refresh(Math.floor(data.bpsup/1000000)*8)
+					window.gaugedown.refresh(Math.floor(data.bpsdown/1000000)*8)
+					setTimeout(getAndSetBw, 5000)
+				});
+			})();
+		};
+		</script>
+	</head>
+	<body>
+		<div>
+			Bandwidth
+		</div>
+		<div class=" gauge-container ">
+			<div id="gup" class=" gauge "></div>
+			<div id="gdown" class=" gauge "></div>
+		</div>
+	</body>
+</html>
