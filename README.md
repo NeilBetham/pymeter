@@ -19,11 +19,11 @@ Config
 The config file for an example apache vhost is in the ApacheConfig folder.
 The vhost config for apache will require a bit of tweaking, namely:
 * WSGIScriptAlias / /var/www/pymeter/pymeter.wsgi Should be changed to match where the app is placed on the system
-* <Directory /var/www/pymeter/> Should also be changed to match where the app is placed on the system
+* Directory /var/www/pymeter/ Should also be changed to match where the app is placed on the system
 * WSGIDaemonProcess pymeter user=www-data group=www-data threads=5 home=/var/www/pymeter/
     * The use and group may need to modified to fit your system
     * home should be changed to the root folder for pymeter
 
 OS Support
 --------------
-* Ubuntu Server
+* Ubuntu Server 12.04
