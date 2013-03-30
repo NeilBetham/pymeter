@@ -9,9 +9,9 @@ WSGI Python App To Keep An Eye On Network Bandwidth
 Dependencies
 ------------
 * python Flask
-		* sudo easy_install flask
+    * sudo easy_install flask
 * mod_wsgi
-		* sudo apt-get install libapache2-mod-wsgi
+    * sudo apt-get install libapache2-mod-wsgi
 
 Setup
 -------------
@@ -24,7 +24,7 @@ The vhost config for apache will require a bit of tweaking, namely:
 * WSGIScriptAlias / /var/www/pymeter/pymeter.wsgi Should be changed to match where the app is placed on the system
 * Directory /var/www/pymeter/ Should also be changed to match where the app is placed on the system
 * WSGIDaemonProcess pymeter user=www-data group=www-data threads=5 home=/var/www/pymeter/
-    * The use and group may need to modified to fit your system
+    * The user and group may need to modified to fit your system
     * home should be changed to the root folder for pymeter
 * pymeter/__init__.py
     * interfaceToMon Needs to be changed to the main network port to monitor
