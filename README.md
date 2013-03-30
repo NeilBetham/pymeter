@@ -27,3 +27,4 @@ The vhost config for apache will require a bit of tweaking, namely:
 OS Support
 --------------
 * Ubuntu Server 12.04
+* **Anything with a proper /proc/net/dev**
