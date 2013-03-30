@@ -29,14 +29,6 @@
 				levelColors: ["#99FFFF","#9900FF"],
 				levelColorsGradient: true
 			});
-			(function getAndSetBw(){
-				$.getJSON('/bw', function(data){
-					console.log(data);
-					window.gaugeup.refresh(Math.floor(data.bpsup/1000000)*8)
-					window.gaugedown.refresh(Math.floor(data.bpsdown/1000000)*8)
-					setTimeout(getAndSetBw, 5000)
-				});
-			})();
 		};
 		</script>
 	</head>
