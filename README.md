@@ -27,8 +27,8 @@ The vhost config for apache will require a bit of tweaking, namely:
     * The use and group may need to modified to fit your system
     * home should be changed to the root folder for pymeter
 * pymeter/__init__.py
-		* interfaceToMon Needs to be changed to the main network port to monitor
-		* maxbw Needs to be changed to the theoretical max bandwidth of the port you are monitoring
+    * interfaceToMon Needs to be changed to the main network port to monitor
+    * maxbw Needs to be changed to the theoretical max bandwidth of the port you are monitoring
 
 OS Support
 --------------
