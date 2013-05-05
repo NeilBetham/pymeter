@@ -30,9 +30,9 @@
 				levelColorsGradient: true
 			});
 			setInterval(function(){
-					window.gaugeup.refresh(Math.random()*1000)
-					window.gaugedown.refresh(Math.random()*1000)
-			}, 1000);
+					window.gaugeup.refresh(Math.round(Math.random()*1000));
+					window.gaugedown.refresh(Math.round(Math.random()*1000));
+			}, 5000);
 		};
 		</script>
 	</head>
