@@ -29,6 +29,10 @@
 				levelColors: ["#99FFFF","#9900FF"],
 				levelColorsGradient: true
 			});
+			setInterval(function(){
+					window.gaugeup.refresh(Math.random()*1000)
+					window.gaugedown.refresh(Math.random()*1000)
+			}, 1000);
 		};
 		</script>
 	</head>
