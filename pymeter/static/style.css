@@ -3,9 +3,8 @@
 	src: url('Cicle_Gordita_Italic.ttf');
 }
 
-html{
+html {
 	height: 100%;
-	margin: 0%;
 }
 
 body {
@@ -13,17 +12,30 @@ body {
 	font-family: CicleGorditaI;
 	font-size: 80px;
 	text-align: center;
+	height: 100%;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#spinner {
+	position: fixed;
+	right: 1em;
+	top: 1em;
 }
 
 .gauge-container{
 	width: 100%;
-	height: 100%;
 }
 
 .gauge {
 	width: 50%;
-  margin: 0px auto;
+  	margin: 0px auto;
 	width:500px; 
 	height:400px;
+	display: inline-block;
 }
 
+#history {
+	font-size: 20px;
+}
