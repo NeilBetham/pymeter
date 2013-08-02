@@ -1,6 +1,6 @@
 @font-face{
 	font-family: CicleGorditaI;
-	src: url('Cicle_Gordita_Italic.ttf');
+	src: url('/static/fonts/Cicle_Gordita_Italic.ttf');
 }
 
 html {
@@ -38,4 +38,6 @@ body {
 
 #history {
 	font-size: 20px;
+	padding-bottom: 2em;
+	width: 100%;
 }
