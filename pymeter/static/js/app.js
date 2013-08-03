@@ -1,4 +1,3 @@
-var graphHistory;
 $(document).ready(function(){
 	// Setup gauges
 	window.gaugeup = new JustGage({
