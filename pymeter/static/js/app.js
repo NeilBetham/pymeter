@@ -4,7 +4,7 @@ $(document).ready(function(){
 		id: "gup", 
 		value: 0, 
 		min: 0,
-		max: 1000,
+		max: 20000,
 		title: "Up",
 		label: "Mbps",
 		levelColors: ["#99FFFF","#9900FF"],
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		id: "gdown", 
 		value: 0, 
 		min: 0,
-		max: 1000,
+		max: 20000,
 		title: "Down",
 		label: " Mbps",
 		levelColors: ["#99FFFF","#9900FF"],
@@ -45,8 +45,8 @@ $(document).ready(function(){
 
 	function getAndSetBw(){
 		$.getJSON('/bw', function(data){
-			window.gaugeup.refresh(Math.floor(data.out/1000000)*8);
-			window.gaugedown.refresh(Math.floor(data.in/1000000)*8);
+			window.gaugeup.refresh(Math.floor(((data.out/1000000)*8)/data.timeDiff));
+			window.gaugedown.refresh(Math.floor(((data.in/1000000)*8)/data.timeDiff));
 		});
 	}
 
@@ -125,7 +125,5 @@ $(document).ready(function(){
 		setTimeout(updateLoop, 5000);
 	})();
 });
-
-
 
 
