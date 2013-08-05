@@ -97,7 +97,7 @@ $(document).ready(function(){
 				return {
 					name: name,
 					values: data.map(function(d) {
-						return {time: Math.floor(d.time)*1000, bytes: (d[name] / (Math.pow(10, orderIndex*3)))};
+						return {time: Math.floor(d.time)*1000, bytes: (d[name] / (Math.pow(10, orderIndex*3))*8)/d.timeDiff};
 					})
 				};
 			});
