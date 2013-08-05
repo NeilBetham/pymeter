@@ -60,7 +60,7 @@ $(document).ready(function(){
 			//Graph scales
 			var x = d3.time.scale().range([0, width]);
 			//	Decide where we are from b/s to Gb/s
-			//	Setup the orders we will use for the y scale
+			//	Setup the orders of magnitudes we will use for the y scale
 			var orders = ['bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps']
 			//	Find out our current max bandwidth
 			var bps = d3.max(data, function(d){ return Math.ceil((Math.max(d.in, d.out)*8)/d.timeDiff); });
@@ -140,11 +140,11 @@ $(document).ready(function(){
 	}
 
 	(function updateLoop(){
+		setTimeout(updateLoop, 5000);
 		$('#spinner').show();
 		window.spinner.spin(window.spinTarget);
 		getAndSetBw();
 		graphHistory();
-		setTimeout(updateLoop, 5000);
 	})();
 });
 
