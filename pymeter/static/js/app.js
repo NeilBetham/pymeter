@@ -63,7 +63,7 @@ $(document).ready(function(){
 			//	Setup the orders we will use for the y scale
 			var orders = ['bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps']
 			//	Find out our current max bandwidth
-			var bps = d3.max(data, function(d){ return Math.max(d.in, d.out); })*8;
+			var bps = d3.max(data, function(d){ return Math.ceil((Math.max(d.in, d.out)*8)/d.timeDiff); });
 			//	Calc which order we want to use
 			var orderIndex = Math.floor(bps.toString().length / 3);
 			var y = d3.scale.linear().range([height, 0]);
@@ -110,8 +110,6 @@ $(document).ready(function(){
 					});
 				})
 			]);
-
-			console.log(data[data.length - 1], bytes[0].values[data.length - 1]);
 
 			//Append x axis
 			svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
