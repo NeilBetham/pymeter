@@ -4,7 +4,7 @@ $(document).ready(function(){
 		id: "gup", 
 		value: 0, 
 		min: 0,
-		max: 20000,
+		max: maxBW,
 		title: "Up",
 		label: "Mbps",
 		levelColors: ["#99FFFF","#9900FF"],
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		id: "gdown", 
 		value: 0, 
 		min: 0,
-		max: 20000,
+		max: maxBW,
 		title: "Down",
 		label: " Mbps",
 		levelColors: ["#99FFFF","#9900FF"],
@@ -57,12 +57,21 @@ $(document).ready(function(){
 	    		width = $(window).width() * .8 - margin.left - margin.right,
 	    		height = 250 - margin.top - margin.bottom;
 
-			// Graph scales
+			//Graph scales
 			var x = d3.time.scale().range([0, width]);
+			//	Decide where we are from b/s to Gb/s
+			//	Setup the orders we will use for the y scale
+			var orders = ['bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps']
+			//	Find out our current max bandwidth
+			var bps = d3.max(data, function(d){ return Math.max(d.in, d.out); })*8;
+			//	Calc which order we want to use
+			var orderIndex = Math.floor(bps.toString().length / 3);
+			console.log(bps, ' ', orderIndex);
 			var y = d3.scale.linear().range([height, 0]);
 
 			//Setup Axis
 			var xAxis = d3.svg.axis().scale(x).orient("bottom");
+			var yAxis = d3.svg.axis().scale(y).orient("left");
 
 			//Line definition
 			var line = d3.svg.line().interpolate("basis").x(function(d) { return x(d.time); }).y(function(d) { return y(d.bytes); });
@@ -89,17 +98,18 @@ $(document).ready(function(){
 				return {
 					name: name,
 					values: data.map(function(d) {
-						return {time: Math.floor(d.time)*1000, bytes: d[name]};
+						return {time: Math.floor(d.time)*1000, bytes: (d[name] / (Math.pow(10, orderIndex*3)))};
 					})
 				};
 			});
 
 			// Setup Domains for x and y scale
 			x.domain([data[0].time*1000, data[data.length - 1].time*1000]);
-			y.domain([0,d3.max(bytes, function(c) { return d3.max(c.values, function(d) { return d.bytes; }); })]);
+			y.domain([0,1000]);
 
 			//Append x axis
 			svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+			svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("y", 6).attr("dy", ".7em").text(orders[orderIndex]);
 
 			//Setup data series
 			var bytes = svg.selectAll(".bytes").data(bytes).enter().append("g");
@@ -110,7 +120,16 @@ $(document).ready(function(){
 				} else{
 					return {name: "Up", value: d.values[d.values.length - 1]};
 				}
-			}).attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.bytes) + ")"; }).attr("x", 3).attr("dy", "1em").text(function(d) { return d.name; });
+			}).attr("transform", function(d) {
+				console.log(d)
+				if(d.name == "Up"){
+					return "translate(" + x(d.value.time) + "," + (y(d.value.bytes) - 10) + ")"; 
+				} else{
+					return "translate(" + x(d.value.time) + "," + (y(d.value.bytes) + 10) + ")"; 
+				}
+			}).attr("x", 15).attr("y", -10).attr("dy", "1em").text(function(d) { 
+				return d.name; 
+			});
 
 			//Done updating kill spinner
 			$('#spinner').fadeOut('slow', function(){window.spinner.stop();});

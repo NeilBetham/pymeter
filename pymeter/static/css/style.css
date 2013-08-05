@@ -41,3 +41,7 @@ body {
 	padding-bottom: 2em;
 	width: 100%;
 }
+
+.y path.domain {
+	display: none;
+}
