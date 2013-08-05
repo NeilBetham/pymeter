@@ -65,8 +65,7 @@ $(document).ready(function(){
 			//	Find out our current max bandwidth
 			var bps = d3.max(data, function(d){ return Math.max(d.in, d.out); })*8;
 			//	Calc which order we want to use
-			var orderIndex = Math.floor((bps.toString().length - 1) / 3);
-			console.log(bps, ' ', orderIndex);
+			var orderIndex = Math.floor(bps.toString().length / 3);
 			var y = d3.scale.linear().range([height, 0]);
 
 			//Setup Axis
@@ -112,6 +111,8 @@ $(document).ready(function(){
 				})
 			]);
 
+			console.log(data[data.length - 1], bytes[0].values[data.length - 1]);
+
 			//Append x axis
 			svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 			svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("y", 6).attr("dy", ".7em").text(orders[orderIndex]);
@@ -126,7 +127,6 @@ $(document).ready(function(){
 					return {name: "Up", value: d.values[d.values.length - 1]};
 				}
 			}).attr("transform", function(d) {
-				console.log(d)
 				if(d.name == "Up"){
 					return "translate(" + x(d.value.time) + "," + (y(d.value.bytes) - 10) + ")"; 
 				} else{
