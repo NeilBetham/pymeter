@@ -65,7 +65,7 @@ $(document).ready(function(){
 			//	Find out our current max bandwidth
 			var bps = d3.max(data, function(d){ return Math.max(d.in, d.out); })*8;
 			//	Calc which order we want to use
-			var orderIndex = Math.floor(bps.toString().length / 3);
+			var orderIndex = Math.floor((bps.toString().length - 1) / 3);
 			console.log(bps, ' ', orderIndex);
 			var y = d3.scale.linear().range([height, 0]);
 
@@ -105,7 +105,12 @@ $(document).ready(function(){
 
 			// Setup Domains for x and y scale
 			x.domain([data[0].time*1000, data[data.length - 1].time*1000]);
-			y.domain([0,1000]);
+			y.domain([0, d3.max(bytes, function(c) { 
+					return d3.max(c.values, function(v) { 
+						return v.bytes; 
+					});
+				})
+			]);
 
 			//Append x axis
 			svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
