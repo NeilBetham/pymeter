@@ -44,7 +44,7 @@ $(document).ready(function(){
 	for (var i = 0; i < 20; i++) {
 		var up = Math.round(Math.random()*1000);
 		var down = Math.round(Math.random()*1000);
-		bwdata.splice(0, 0, {"timeDiff": 5, "in": down*1000000, "time": (((new Date).getTime()/1000)-(100))+(5*i), "out": up*1000000});
+		bwdata.splice(0, 0, {"timeDiff": 5, "in": down*1000000*5, "time": (((new Date).getTime()/1000)-(100))+(5*i), "out": up*1000000*5});
 	};
 	graphHistory($.extend(true, [], bwdata));
 
@@ -58,7 +58,7 @@ $(document).ready(function(){
 		window.gaugeup.refresh(up);
 		window.gaugedown.refresh(down);
 		//Generate some random data
-		bwdata.splice(0, 0, {"timeDiff": 5, "in": down*1000000, "time": ((new Date).getTime()/1000), "out": up*1000000});
+		bwdata.splice(0, 0, {"timeDiff": 5, "in": down*1000000*5, "time": ((new Date).getTime()/1000), "out": up*1000000*5});
 	}
 
 	function graphHistory(data){
@@ -107,11 +107,11 @@ $(document).ready(function(){
 			return {
 				name: name,
 				values: data.map(function(d) {
-					return {time: Math.floor(d.time)*1000, bytes: (d[name] / (Math.pow(10, orderIndex*3))*8)/d.timeDiff};
+					return {time: Math.floor(d.time)*1000, bytes: (d[name] / (Math.pow(10, orderIndex * 3)))/d.timeDiff};
 				})
 			};
 		});
-
+		console.log(bytes);
 		// Setup Domains for x and y scale
 		x.domain([data[0].time*1000, data[data.length - 1].time*1000]);
 		y.domain([0, d3.max(bytes, function(c) { 
