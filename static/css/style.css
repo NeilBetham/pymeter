@@ -1,0 +1,47 @@
+@font-face{
+	font-family: CicleGorditaI;
+	src: url('../fonts/Cicle_Gordita_Italic.ttf');
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	background: -webkit-gradient(linear, left top, left bottom, from(#79F9C9), to(#40E0D0));
+	font-family: CicleGorditaI;
+	font-size: 80px;
+	text-align: center;
+	height: 100%;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#spinner {
+	position: fixed;
+	right: 1em;
+	top: 1em;
+}
+
+.gauge-container{
+	width: 100%;
+}
+
+.gauge {
+	width: 50%;
+  	margin: 0px auto;
+	width:500px; 
+	height:400px;
+	display: inline-block;
+}
+
+#history {
+	font-size: 20px;
+	padding-bottom: 2em;
+	width: 100%;
+}
+
+.y path.domain {
+	display: none;
+}
